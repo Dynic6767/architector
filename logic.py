@@ -1,6 +1,7 @@
 import json
 import requests
 import time
+import os 
 from config import *
 
 class Leonardobot:
@@ -14,11 +15,11 @@ class Leonardobot:
         }
         self.url = "https://cloud.leonardo.ai/api/rest/v1/generations"
 
-    def gen_image(self, promt, filename="result.jpg"):
+    def gen_image(self, prompt, filename="result.jpg", delete_after_send=False):
         payload = {
             "height": 512,
-            "modelId": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",  # Setting model ID to Leonardo Creative
-            "prompt": promt,
+            "modelId": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
+            "prompt": prompt,
             "width": 512
         }
 
@@ -37,7 +38,8 @@ class Leonardobot:
         with open(filename, "wb") as f:
             f.write(gen_data)
 
-        return gen_img
+        return filename  
+
 
 api = Leonardobot("45561f30-65ea-409a-ac38-add7eefdca65")
 
